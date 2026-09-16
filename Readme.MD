@@ -1,7 +1,7 @@
 # DH.NHoliday - 中国假期识别库
 
 中国假期识别库，内置假期调休数据库，每年维护更新，支持自动识别农历节假日。  
-包名 `DH.NHoliday`，命名空间保持 `NewLife.Holiday`，同步自上游 [NewLife.Holiday](https://github.com/NewLifeX/NewLife.Holiday)。支持 net45 / net461 / netstandard2.0 / netstandard2.1。
+包名 `DH.NHoliday`，命名空间保持 `NewLife.Holiday`，同步自 [NewLife.Holiday](https://github.com/NewLifeX/NewLife.Holiday)。支持 net45 / net461 / netstandard2.0 / netstandard2.1 / net11.0。
 
 ## 使用方法
 从 NuGet 引用 `DH.NHoliday`，代码中引入命名空间 `NewLife.Holiday` 即可使用 DateTime 扩展方法 IsChinaHoliday。  
