@@ -1,24 +1,23 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-    <Company>新生命开发团队</Company>
-    <Copyright>©2002-2026 NewLife</Copyright>
-    <VersionPrefix>1.0</VersionPrefix>
-    <VersionSuffix>$([System.DateTime]::Now.ToString(`yyyy.MMdd`))</VersionSuffix>
-    <Version>$(VersionPrefix).$(VersionSuffix)</Version>
-    <FileVersion>$(Version)</FileVersion>
-    <AssemblyVersion>$(VersionPrefix).*</AssemblyVersion>
-    <Deterministic>false</Deterministic>
+    <TargetFramework>net10.0</TargetFramework>
+    <Company>湖北登灏科技有限公司</Company>
+    <Copyright>©2020-2026 湖北登灏科技有限公司</Copyright>
     <OutputPath>..\Bin\Test</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="NewLife.Core" Version="11.13.2026.301" />
+    <PackageReference Include="DH.NCore" Version="4.25.2026.911-beta0202" />
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\NewLife.Holiday\NewLife.Holiday.csproj" />
+    <ProjectReference Include="..\DH.NHoliday\DH.NHoliday.csproj" />
   </ItemGroup>
+
 </Project>

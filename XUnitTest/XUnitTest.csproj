@@ -1,15 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputPath>..\Bin\UnitTest</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DH.NCore" Version="4.25.2026.911-beta0202" />
+    <PackageReference Include="DH.UnitTest" Version="4.25.2026.914-beta0328" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
-    <PackageReference Include="NewLife.Core" Version="11.13.2026.301" />
-    <PackageReference Include="NewLife.UnitTest" Version="1.1.2026.102" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
       <PrivateAssets>all</PrivateAssets>
@@ -22,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NewLife.Holiday\NewLife.Holiday.csproj" />
+    <ProjectReference Include="..\DH.NHoliday\DH.NHoliday.csproj" />
   </ItemGroup>
 
 </Project>

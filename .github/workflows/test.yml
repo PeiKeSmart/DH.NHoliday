@@ -9,44 +9,23 @@ on:
 
 jobs:
   build-publish:
-    runs-on: windows-latest
+
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
-
-    - uses: pnpm/action-setup@v4
-      with:
-        version: 10.17.1
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 22
-        cache: pnpm
-        cache-dependency-path: Web/pnpm-lock.yaml
-
-    - name: Setup dotNET
+    - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 10.x
-
-    - name: Install frontend dependencies
-      run: pnpm --dir Web install --frozen-lockfile
-
-    - name: Build frontend
-      run: pnpm --dir Web build
-
-    - name: Test frontend
-      shell: bash
+        dotnet-version: |
+          6.x
+          7.x
+          8.x
+          9.x
+          10.x
+    - name: Build
       run: |
-        if node -e "const scripts=require('./Web/package.json').scripts||{}; process.exit(scripts.test ? 0 : 1)"; then
-          pnpm --dir Web test
-        else
-          echo "No frontend unit test script found in Web/package.json, skipping frontend tests."
-        fi
-
-    - name: Build backend
-      run: dotnet build -c Release NewLife.AI.sln
-
-    - name: Test backend
-      run: dotnet test -c Release --no-build NewLife.AI.sln
+        dotnet build -c Release
+    - name: Test
+      run: |
+        dotnet test -c Release XUnitTest/XUnitTest.csproj

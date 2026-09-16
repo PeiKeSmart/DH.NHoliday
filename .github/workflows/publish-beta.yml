@@ -2,51 +2,34 @@ name: publish-beta
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
     paths:
-      - 'NewLife.AI/**'
-      - 'NewLife.AI.Extensions/**'
-      - 'NewLife.ChatAI/**'
-      - 'Web/**'
+        - 'DH.NHoliday/**'
   workflow_dispatch:
 
 jobs:
   build-publish:
+
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
-
-    - uses: pnpm/action-setup@v4
-      with:
-        version: 10.17.1
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 22
-        cache: pnpm
-        cache-dependency-path: Web/pnpm-lock.yaml
-
-    - name: Setup dotNET
+    - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 10.x
-
-    - name: Install frontend dependencies
-      run: pnpm --dir Web install --frozen-lockfile
-
-    - name: Build frontend
-      run: pnpm --dir Web build
-
-    - name: Pack NewLife.AI beta
-      run: dotnet pack --version-suffix $(date "+%Y.%m%d-beta%H%M") -c Release -o out NewLife.AI/NewLife.AI.csproj
-
-    - name: Pack NewLife.AI.Extensions beta
-      run: dotnet pack --version-suffix $(date "+%Y.%m%d-beta%H%M") -c Release -o out NewLife.AI.Extensions/NewLife.AI.Extensions.csproj
-
-    - name: Pack ChatAI beta
-      run: dotnet pack --version-suffix $(date "+%Y.%m%d-beta%H%M") -c Release -o out NewLife.ChatAI/NewLife.ChatAI.csproj
-
+        dotnet-version: |
+          6.x
+          7.x
+          8.x
+          9.x
+          10.x
+    - name: Restore
+      run: |
+        dotnet restore DH.NHoliday/DH.NHoliday.csproj
+    - name: Build
+      run: |
+        dotnet pack --no-restore --version-suffix $(date "+%Y.%m%d-beta%H%M") -c Release -o out DH.NHoliday/DH.NHoliday.csproj
     - name: Publish
-      run: dotnet nuget push ./out/*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.nugetKey }}
+      run: |
+        dotnet nuget push ./out/*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.nugetKey }}
+        dotnet nuget push ./out/*.nupkg --skip-duplicate --source https://nuget.chuangchu.net/v3/index.json --api-key ${{ secrets.mynugetKey }}
